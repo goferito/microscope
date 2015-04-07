@@ -17,7 +17,9 @@ Template.postEdit.events({
     Posts.update(currentPostId, {$set: postProperties}, function(err, result){
 
       // Show the error and abort
-      if(err) return throwError(err.reason);
+      if(err) return Errors.throw(err.reason);
+
+      if(result.postExists) Errors.throw('This link has already been posted');
 
       Router.go('postPage', {_id: currentPostId});
     });
