@@ -9,13 +9,10 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     };
 
-    Posts.update(currentPostId, {$set: postProperties}, function(err){
+    Posts.update(currentPostId, {$set: postProperties}, function(err, result){
 
       // Show the error and abort
       if(err) return throwError(err.reason);
-
-      // Show the error but route anyway
-      if(result.postExists) throwError('This link has already been posted');
 
       Router.go('postPage', {_id: currentPostId});
     });
