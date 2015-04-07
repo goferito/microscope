@@ -9,6 +9,11 @@ Template.postEdit.events({
       title: $(e.target).find('[name=title]').val()
     };
 
+    var errors = validatePost(postProperties);
+    if(Object.keys(errors).length){
+      return Session.set('postSubmitErrors', errors);
+    }
+
     Posts.update(currentPostId, {$set: postProperties}, function(err, result){
 
       // Show the error and abort
@@ -29,3 +34,17 @@ Template.postEdit.events({
     }
   }
 });
+
+Template.postEdit.created = function(){
+  Session.set('postSubmitErrors', {});
+};
+
+Template.postEdit.helpers({
+  errorMessage: function(field){
+    return Session.get('postSubmitErrors')[field];
+  },
+  errorClass: function(field){
+    return !!Session.get('postSubmitErrors')[field] ? 'has-error' : '';
+  }
+});
+

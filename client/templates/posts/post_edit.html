@@ -1,6 +1,7 @@
 <template name="postEdit">
   <form class="main form page">
-    <div class="form-group"> <label class="control-label" for="url">URL</label>
+    <div class="form-group {{errorClass 'url'}}">
+      <label class="control-label" for="url">URL</label>
       <div class="controls">
         <input
           class="form-control"
@@ -9,9 +10,10 @@
           value="{{url}}"
           placeholder="Your URL"
           name="url" />
+          <span class="help-block">{{errorMessage 'url'}}</span>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group {{errorClass 'title'}}">
       <label class="control-label" for="title">Title</label>
       <div class="controls">
         <input
@@ -21,6 +23,7 @@
           value="{{title}}"
           placeholder="Name your post"
           name="title" />
+          <span class="help-block">{{errorMessage 'title'}}</span>
       </div>
     </div>
     <input type="submit" value="Submit" class="btn btn-primary submit" />
